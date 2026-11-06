@@ -1,0 +1,346 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   SWAMI JAP — DESIGN TOKENS
+   CSS-first Tailwind v4 theme. This is the single source of truth for brand
+   colour, type, spacing, radii, shadows, motion, containers and breakpoints.
+   ========================================================================== */
+
+@theme {
+  /* ---- Brand palette ---------------------------------------------------- */
+  --color-brand-orange: #e43d12;
+  /* CTA-safe orange: visually equivalent to #e43d12, 4.54:1 with white text */
+  --color-brand-orange-cta: #db3a10;
+  --color-brand-orange-hover: #c7350f;
+  --color-brand-orange-soft: #fbe9e4;
+
+  --color-dusty-rose: #d6536d;
+  --color-dusty-rose-deep: #ad4057;
+  --color-dusty-rose-soft: #f9e7ea;
+
+  --color-soft-pink: #ffa2b6;
+  --color-soft-pink-soft: #ffe8ed;
+
+  --color-mustard: #efb11d;
+  --color-mustard-hover: #e3a715;
+  --color-mustard-deep: #6b5314;
+  --color-mustard-soft: #fbf1d4;
+
+  --color-ivory: #ebe9e1;
+  --color-charcoal: #292929;
+  --color-charcoal-soft: #4a453f;
+  --color-beige: #f5f1e9;
+  --color-brown: #806b59;
+  --color-brown-strong: #6f5c4c;
+  --color-border: #ded8ce;
+  --color-border-strong: #c9c0b3;
+
+  /* ---- Functional status colours (admin only, derived from brand) ------- */
+  --color-success-bg: #edf3ee;
+  --color-success-text: #2f5e3f;
+  --color-success-border: #c9dccd;
+  --color-warning-bg: #fbf3dd;
+  --color-warning-text: #6b5314;
+  --color-warning-border: #ead9a8;
+  --color-danger-bg: #f9e7ea;
+  --color-danger-text: #8a2c3c;
+  --color-danger-border: #e7c0c7;
+
+  /* ---- Typography ------------------------------------------------------- */
+  --font-serif: var(--font-playfair), "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Responsive type scale */
+  --text-display: clamp(2.75rem, 6.4vw, 4.75rem);
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.025em;
+
+  --text-h1: clamp(2.25rem, 4.8vw, 3.5rem);
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.02em;
+
+  --text-h2: clamp(1.875rem, 3.4vw, 2.75rem);
+  --text-h2--line-height: 1.14;
+  --text-h2--letter-spacing: -0.018em;
+
+  --text-h3: clamp(1.5rem, 2.6vw, 2rem);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.012em;
+
+  --text-h4: 1.25rem;
+  --text-h4--line-height: 1.35;
+
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.7;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.7;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.6;
+
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.5;
+
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1.4;
+
+  --tracking-eyebrow: 0.18em;
+  --tracking-editorial: -0.015em;
+
+  /* ---- Spacing ---------------------------------------------------------- */
+  --spacing: 0.25rem;
+
+  /* ---- Radii (kept deliberately restrained) ----------------------------- */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* ---- Shadows (soft, warm, never heavy) -------------------------------- */
+  --shadow-xs: 0 1px 2px 0 rgb(41 41 41 / 0.04);
+  --shadow-sm: 0 2px 10px -6px rgb(41 41 41 / 0.12);
+  --shadow-md: 0 12px 36px -24px rgb(41 41 41 / 0.22);
+  --shadow-lg: 0 24px 64px -36px rgb(41 41 41 / 0.28);
+
+  /* ---- Motion ----------------------------------------------------------- */
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --animate-fade-in: fade-in var(--duration-base) var(--ease-standard) both;
+  --animate-scale-in: scale-in var(--duration-base) var(--ease-editorial) both;
+  --animate-slide-in-right: slide-in-right var(--duration-slow) var(--ease-editorial) both;
+  --animate-slide-up: slide-up var(--duration-slow) var(--ease-editorial) both;
+
+  /* ---- Containers ------------------------------------------------------- */
+  --container-narrow: 44rem;
+  --container-page: 80rem;
+  --container-wide: 90rem;
+
+  /* ---- Breakpoints (explicit, aligned with Tailwind defaults) ----------- */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+}
+
+/* Runtime layout + motion tokens. Kept in :root so custom utilities can always
+   resolve them, even when a Tailwind utility is not generated for them. */
+:root {
+  --page-max: 80rem;
+  --page-gutter: clamp(1.25rem, 4vw, 2rem);
+  --section-space: clamp(4.5rem, 8vw, 7.5rem);
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --header-height: 5rem;
+}
+
+/* ==========================================================================
+   KEYFRAMES — replaces the missing tailwindcss-animate plugin
+   ========================================================================== */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   REUSABLE PRIMITIVES
+   ========================================================================== */
+
+@utility container-page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+@utility section-pad {
+  padding-block: var(--section-space);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+@utility surface-card {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+/* ==========================================================================
+   LENIS SMOOTH-SCROLL RESETS (retained from the existing implementation)
+   ========================================================================== */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-padding-top: calc(var(--header-height) + 1rem);
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--color-brand-orange);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-orange);
+    color: #ffffff;
+  }
+}
+
+/* ==========================================================================
+   SCROLLBAR
+   ========================================================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-orange);
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
